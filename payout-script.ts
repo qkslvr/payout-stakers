@@ -75,12 +75,12 @@ const main = async () => {
 
   // Get the active era
   const activeEra = (await api.query.staking.currentEra()).toJSON() as number
-  // const activeEra = 99
-  const startEra = 260 //259 Claimed till now
+  
+  const startEra = activeEra-3
   const eraStats: EraStats[] = [];
 
   // Loop through each era
-  for (let currentEra = startEra; currentEra <= activeEra-3; currentEra++) {
+  for (let currentEra = startEra; currentEra <= activeEra-2; currentEra++) {
     console.log(`Processing era ${currentEra}...`);
     
     let toClaim: { era: number; validator: string }[] = [];
