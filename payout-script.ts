@@ -74,13 +74,13 @@ const main = async () => {
   let validatorStashes: string[] = [];
 
   // Get the active era
-  // const activeEra = (await api.query.staking.currentEra()).toJSON() as number
-  const activeEra = 99
-  const startEra = 98
+  const activeEra = (await api.query.staking.currentEra()).toJSON() as number
+  // const activeEra = 99
+  const startEra = 260 //259 Claimed till now
   const eraStats: EraStats[] = [];
 
   // Loop through each era
-  for (let currentEra = startEra; currentEra <= activeEra; currentEra++) {
+  for (let currentEra = startEra; currentEra <= activeEra-3; currentEra++) {
     console.log(`Processing era ${currentEra}...`);
     
     let toClaim: { era: number; validator: string }[] = [];
@@ -169,7 +169,7 @@ const main = async () => {
     // Process payouts for the current era
     const transactions = await Promise.all(toClaim.map((x) => api.tx.staking.payoutStakers(x.validator, x.era)))
     const chunks = []
-    const chunkSize = 5
+    const chunkSize = 20
     for (let i = 0; i < transactions.length; i += chunkSize) {
       const chunk = transactions.slice(i, i + chunkSize)
       chunks.push(chunk)
@@ -211,8 +211,8 @@ const main = async () => {
   }
 
   // Send final summary to Slack
-  // await sendSlackMessage(eraStats);
-  console.log(eraStats)
+  await sendSlackMessage(eraStats);
+  // console.log(eraStats)
 
   console.log("All eras processed, disconnecting...")
   await disconnect()
