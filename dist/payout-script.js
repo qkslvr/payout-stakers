@@ -53,10 +53,10 @@ const main = async () => {
     // Get the active era
     const activeEra = (await api.query.staking.currentEra()).toJSON();
     // const activeEra = 99
-    const startEra = 246;
+    const startEra = 260; //259 Claimed till now
     const eraStats = [];
     // Loop through each era
-    for (let currentEra = startEra; currentEra <= activeEra - 7; currentEra++) {
+    for (let currentEra = startEra; currentEra <= activeEra - 3; currentEra++) {
         console.log(`Processing era ${currentEra}...`);
         let toClaim = [];
         // Get the validators who earned reward during this era
