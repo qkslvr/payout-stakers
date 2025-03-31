@@ -76,7 +76,7 @@ const main = async () => {
   // Get the active era
   const activeEra = (await api.query.staking.currentEra()).toJSON() as number
   
-  const startEra = activeEra-3
+  const startEra = activeEra-2
   const eraStats: EraStats[] = [];
 
   // Loop through each era
