@@ -76,7 +76,7 @@ const main = async () => {
   // Get the active era
   const activeEra = (await api.query.staking.currentEra()).toJSON() as number
   
-  const startEra = activeEra-53
+  const startEra = activeEra-8
   const eraStats: EraStats[] = [];
 
   // Loop through each era
@@ -211,7 +211,7 @@ const main = async () => {
   }
 
   // Send final summary to Slack
-  await sendSlackMessage(eraStats);
+  // await sendSlackMessage(eraStats);
   // console.log(eraStats)
 
   console.log("All eras processed, disconnecting...")
